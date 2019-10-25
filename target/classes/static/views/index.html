@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculator</title>
+    <style>
+        #resultadooperacion{
+          color:rgb(5,142,45);
+        }
+        </style>
+    <script>
+        function bodyIsReady() {
+            var input1 = document.getElementById("numberone");
+            var input2 = document.getElementById("numbertwo");
+            var resultado = document.getElementById("resultadooperacion");
+            /* add function */
+            document.getElementById("add").addEventListener("click", add);
+            function add() {
+                console.log('adding: ', input1.value, input2.value);
+                const url = 'http://localhost:8080/calculator/add?param1=' + input1.value + '&param2=' + input2.value;
+                const http = new XMLHttpRequest();
+                http.open("GET", url)
+                http.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText)
+                        resultado.innerText = this.responseText
+                    }
+                }
+                http.send()
+            }
+            /* substract function */
+            document.getElementById("substract").addEventListener("click", substract);
+            function substract() {
+                console.log('adding: ', input1.value, input2.value);
+                const url = 'http://localhost:8080/calculator/substract?param1=' + input1.value + '&param2=' + input2.value;
+                const http = new XMLHttpRequest();
+                http.open("GET", url)
+                http.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText)
+                        resultado.innerText = this.responseText
+                    }
+                }
+                http.send()
+            }
+            /* multiply function */
+            document.getElementById("multiply").addEventListener("click", multiply);
+            function multiply() {
+                console.log('adding: ', input1.value, input2.value);
+                const url = 'http://localhost:8080/calculator/multiply?param1=' + input1.value + '&param2=' + input2.value;
+                const http = new XMLHttpRequest();
+                http.open("GET", url)
+                http.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        console.log(this.responseText)
+                        resultado.innerText = this.responseText
+                    }
+                }
+                http.send()
+            }
+            /* divide function */
+            document.getElementById("divide").addEventListener("click", divide);
+            function divide() {
+                console.log('adding: ', input1.value, input2.value);
+                const url = 'http://localhost:8080/calculator/divide?param1=' + input1.value + '&param2=' + input2.value;
+                const http = new XMLHttpRequest();
+                http.open("GET", url)
+                http.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) {
+                            console.log(this.response)
+                            var jsonResponse = JSON.parse(this.responseText);
+                            resultado.innerText = jsonResponse.message;
+                        } else {
+                            console.log(this.response);
+                            var jsonResponse = JSON.parse(this.responseText);
+                            resultado.innerText = jsonResponse.message;
+                        }
+                    }
+                }
+                http.send();
+            }
+        }
+    </script>
+</head>
+
+<body onload="bodyIsReady()">
+    <center>
+    <div class="container">
+        <div class="row">
+            <label>NUM 1:</label>
+            <input type="number" id="numberone" />
+        </div>
+        <p></p>
+        <div class="row">
+            <label>NUM 2:</label>
+            <input type="number" id="numbertwo" />
+        </div>
+        <p></p>
+        <div class="row">
+            <label>RESULTADO:</label>
+            <label id="resultadooperacion"></label>
+        </div>
+        <p></p>
+        <button class="btn btn-sm btn-info" id="add">add</button>
+        <button class="btn btn-sm btn-info" id="substract">substract</button>
+        <button class="btn btn-sm btn-info" id="multiply">multiply</button>
+        <button class="btn btn-sm btn-info" id="divide">divide</button>
+    </div>
+    </center>
+</body>
+
+</html>
